@@ -38,7 +38,21 @@ public class Car {
         }
 
         public Car build() {
+            validate();
             return new Car(this);
+        }
+
+        private void validate() {
+            if (brand == null) {
+                throw new IllegalArgumentException("Бренд автомобиля не указан");
+            }
+
+            if (enginePower <= 0) {
+                throw new IllegalArgumentException("Мощность двигателя должна быть положительной");
+            }
+            if (year < 1885) {
+                throw new IllegalArgumentException("Год выпуска не может быть меньше 1885");
+            }
         }
     }
 }
