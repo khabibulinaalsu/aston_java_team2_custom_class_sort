@@ -17,49 +17,6 @@ public class Car {
         return new Builder();
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public int getEnginePower() {
-        return enginePower;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Car car = (Car) obj;
-
-        return enginePower == car.enginePower
-                && year == car.year
-                && Objects.equals(brand, car.brand);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(brand, enginePower, year);
-    }
-
-    @Override
-    public String toString() {
-        return "Автомобиль {" +
-                "бренд:" + brand + '\'' +
-                ", мощность двигателя: " + enginePower +
-                ", год выпуска: " + year +
-                '}';
-    }
-
     public static final class Builder {
         private String brand;
         private int enginePower;
