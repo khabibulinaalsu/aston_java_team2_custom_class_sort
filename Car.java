@@ -1,5 +1,6 @@
 package aston_java_team2_custom_class_sort;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Car {
@@ -101,4 +102,8 @@ public class Car {
             }
         }
     }
+
+    public static final Comparator<Car> BY_BRAND = Comparator.comparing(Car::getBrand);
+    public static final Comparator<Car> BY_ENGINE_POWER = Comparator.comparing(Car::getEnginePower);
+    public static final Comparator<Car> BY_YEAR = Comparator.comparingInt(Car::getYear);
 }
