@@ -1,4 +1,3 @@
-//package aston_java_team2_custom_class_sort.src;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,18 +10,19 @@ public class ConsoleMenu {
         SortStrategy<Car> strategy = new BubbleSortStrategy<>();
         String command;
         List<Car> carList = new ArrayList<>(List.of(
-                Car.builder()
+                    Car.builder()
                         .brand("brandA")
                         .enginePower(300)
                         .year(2001)
                         .build(),
 
-                Car.builder()
+                    Car.builder()
                         .brand("brandB")
                         .enginePower(200)
                         .year(2003)
                         .build(),
-                Car.builder()
+                        
+                    Car.builder()
                         .brand("brandC")
                         .enginePower(100)
                         .year(2002)
@@ -38,10 +38,12 @@ public class ConsoleMenu {
                 case "1":
                     System.out.println("Выберите способ заполнения данных('1' - вручную, '2' - из файла, '3' - рандом.");
                     break;
-
+                    
                 case "2":
                     System.out.println("Сортировать по...('1' - brand, '2' - enginePower, '3' - year).");
+
                     command = scanner.nextLine();
+
                     Comparator<Car> comparator = switch (command) {
                         case "1" -> Comparator.comparing(Car::getBrand);
                         case "2" -> Comparator.comparing(Car::getEnginePower);
