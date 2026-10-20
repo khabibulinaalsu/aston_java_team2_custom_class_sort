@@ -1,5 +1,3 @@
-//package aston_java_team2_custom_class_sort;
-
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -54,11 +52,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Автомобиль {" +
-                "бренд:" + brand + '\'' +
-                ", мощность двигателя: " + enginePower +
-                ", год выпуска: " + year +
-                '}';
+        return "Car: " + brand + ", " + enginePower + ", " + year;
     }
 
     public static final class Builder {
