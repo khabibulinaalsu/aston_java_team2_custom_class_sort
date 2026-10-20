@@ -1,8 +1,6 @@
 package aston_java_team2_custom_class_sort;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 
 public class Car {
@@ -15,25 +13,6 @@ public class Car {
         enginePower = b.enginePower;
         year = b.year;
     }
-
-    static List<Car> carList = new ArrayList<>(List.of(
-            new Builder()
-                    .brand("brandA")
-                    .enginePower(300)
-                    .year(2001)
-                    .build(),
-
-            new Builder()
-                    .brand("brandB")
-                    .enginePower(200)
-                    .year(2003)
-                    .build(),
-            new Builder()
-                    .brand("brandC")
-                    .enginePower(100)
-                    .year(2002)
-                    .build()
-    ));
 
     public static Builder builder() {
         return new Builder();

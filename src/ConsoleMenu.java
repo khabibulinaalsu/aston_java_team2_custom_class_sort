@@ -1,6 +1,8 @@
 package aston_java_team2_custom_class_sort.src;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -8,6 +10,24 @@ public class ConsoleMenu {
         Scanner scanner = new Scanner(System.in);
         SortStrategy<Car> strategy = new BubbleSortStrategy<>();
         String command;
+        List<Car> carList = new ArrayList<>(List.of(
+                new Car.Builder()
+                        .brand("brandA")
+                        .enginePower(300)
+                        .year(2001)
+                        .build(),
+
+                new Car.Builder()
+                        .brand("brandB")
+                        .enginePower(200)
+                        .year(2003)
+                        .build(),
+                new Car.Builder()
+                        .brand("brandC")
+                        .enginePower(100)
+                        .year(2002)
+                        .build()
+        ));
 
 
         while (true) {
