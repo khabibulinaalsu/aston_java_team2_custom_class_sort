@@ -11,18 +11,18 @@ public class ConsoleMenu {
         SortStrategy<Car> strategy = new BubbleSortStrategy<>();
         String command;
         List<Car> carList = new ArrayList<>(List.of(
-                new Car.Builder()
+                Car.builder()
                         .brand("brandA")
                         .enginePower(300)
                         .year(2001)
                         .build(),
 
-                new Car.Builder()
+                Car.builder()
                         .brand("brandB")
                         .enginePower(200)
                         .year(2003)
                         .build(),
-                new Car.Builder()
+                Car.builder()
                         .brand("brandC")
                         .enginePower(100)
                         .year(2002)
@@ -49,8 +49,8 @@ public class ConsoleMenu {
                         default -> throw new IllegalStateException("Unexpected value: " + command);
                     };
 
-                    strategy.sort(Car.carList, comparator); //Запускает сортировку. У меня carList находился в классе Car
-                    Car.carList.forEach(System.out::println);   //Проверка сортировщика
+                    strategy.sort(carList, comparator); //Запускает сортировку. У меня carList находился в классе Car
+                    carList.forEach(System.out::println);   //Проверка сортировщика
 
                 case "3":
                     System.out.println("Выход...");
