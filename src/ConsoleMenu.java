@@ -1,4 +1,4 @@
-package aston_java_team2_custom_class_sort.src;
+//package aston_java_team2_custom_class_sort.src;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,6 +37,7 @@ public class ConsoleMenu {
             switch (command) {
                 case "1":
                     System.out.println("Выберите способ заполнения данных('1' - вручную, '2' - из файла, '3' - рандом.");
+                    break;
                 case "2":
                     System.out.println("Сортировать по...('1' - brand, '2' - enginePower, '3' - year).");
 
@@ -51,6 +52,7 @@ public class ConsoleMenu {
 
                     strategy.sort(carList, comparator); //Запускает сортировку. У меня carList находился в классе Car
                     carList.forEach(System.out::println);   //Проверка сортировщика
+                    break;
 
                 case "3":
                     System.out.println("Выход...");
