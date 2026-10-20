@@ -38,11 +38,10 @@ public class ConsoleMenu {
                 case "1":
                     System.out.println("Выберите способ заполнения данных('1' - вручную, '2' - из файла, '3' - рандом.");
                     break;
+
                 case "2":
                     System.out.println("Сортировать по...('1' - brand, '2' - enginePower, '3' - year).");
-
                     command = scanner.nextLine();
-
                     Comparator<Car> comparator = switch (command) {
                         case "1" -> Comparator.comparing(Car::getBrand);
                         case "2" -> Comparator.comparing(Car::getEnginePower);
