@@ -29,7 +29,7 @@ public class ConsoleMenu {
                         default -> throw new IllegalStateException("Unexpected value: " + command);
                     };
 
-                    strategy.sort(Car.carList, comparator); //Запускает сортировку. У меня carList находится в классе Car
+                    strategy.sort(Car.carList, comparator); //Запускает сортировку. У меня carList находился в классе Car
                     Car.carList.forEach(System.out::println);   //Проверка сортировщика
 
                 case "3":
