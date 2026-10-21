@@ -1,3 +1,3 @@
 public interface Parser<T> {
-    T parse(String str);
+    T parse(String line);
 }
