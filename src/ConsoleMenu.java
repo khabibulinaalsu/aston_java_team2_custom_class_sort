@@ -13,7 +13,9 @@ public class ConsoleMenu {
 
 
         while (true) {
-            System.out.println("Выберите действие('1' - ввод данных, '2' - сортировка, '3' - запись, '4' - подсчёт автомобилей, '5' - выход).");
+
+            System.out.println("Выберите действие('1' - ввод данных, '2' - сортировка, '3' - особая сортировка, '4' - запись, '5' - подсчёт автомобилей, '6' - выход).");
+
             command = scanner.nextLine();
 
             switch (command) {
@@ -69,9 +71,35 @@ public class ConsoleMenu {
                     }
                     break;
                 case "3":
+                    System.out.println("Сортировать чётные элементы по... ('1' - enginePower, '2' - year.)");
+                    String field = scanner.nextLine();
+                    if (!field.equals("1") && !field.equals("2")) {
+                        System.out.println("Неверный выбор поля.");
+                    }
+
+                    SortStrategy<Car> specialStrategy = new EvenFieldSortDecorator<>(
+                        new BubbleSortStrategy<>(),
+                        field.equals("1")
+                            ? Car::getEnginePower
+                            : Car::getYear
+                    );
+
+                    Comparator<Car> specialComparator =
+                        field.equals("1")
+                            ? Car.BY_ENGINE_POWER
+                            : Car.BY_YEAR;
+
+                    specialStrategy.sort(carList, specialComparator);
+
+                    System.out.println("Особая сортировка выполнена.");
+
+                    break;
+                case "4":
+                    System.out.println("Введите название файла:");
+                    String fileName = scanner.nextLine();
                     try {
-                        CarFileWrite.appendCars(carList, "sorted-cars.txt");
-                        System.out.println("Автомобили добавлены в файл sorted-cars.txt.");
+                        CarFileWrite.appendCars(carList, fileName);
+                        System.out.println(carList.size() + " автомобилей добавлено в файл " + fileName);
                     } catch (IOException | NullPointerException e) {
                         System.out.println("Ошибка записи в файл: " + e.getMessage());
                     }
@@ -80,7 +108,7 @@ public class ConsoleMenu {
                 case "4":
                     CarCounter.countOccurrences(carList);
                     break;
-
+                    
                 case "5":
                     System.out.println("Выход...");
                     scanner.close();
