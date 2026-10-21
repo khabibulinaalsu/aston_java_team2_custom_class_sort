@@ -1,4 +1,4 @@
-
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -36,7 +36,28 @@ public class ConsoleMenu {
 
             switch (command) {
                 case "1":
-                    System.out.println("Выберите способ заполнения данных('1' - вручную, '2' - из файла, '3' - рандом.");
+                    System.out.println("Выберите способ заполнения данных('1' - вручную, '2' - из файла, '3' - рандом).");
+                    String inputMode = scanner.nextLine();
+                    
+                    System.out.print("Введите длину массива: ");
+                    int size = Integer.parseInt(scanner.nextLine());
+                    
+                    DataSource<Car> dataSource = null;
+                    if (inputMode.equals("1")) {
+                        dataSource = new ManualDataSource(scanner, size);
+                    } else if (inputMode.equals("2")) {
+                        System.out.print("Введите путь к файлу: ");
+                        dataSource = new FileDataSource(Path.of(scanner.nextLine()), new CarParser());
+                    } else if (inputMode.equals("3")) {
+                        dataSource = new RandomDataSource(size);
+                    }
+                    
+                    if (dataSource != null) {
+                        carList = dataSource.load();
+                        System.out.println("Загружено элементов: " + carList.size());
+                    } else {
+                        System.out.println("Неверный способ ввода.");
+                    }
                     break;
                     
                 case "2":
@@ -44,21 +65,28 @@ public class ConsoleMenu {
 
                     command = scanner.nextLine();
 
+                    //ИЗМЕНЕНО: убрали throw, который ронял программу
                     Comparator<Car> comparator = switch (command) {
-                        case "1" -> Comparator.comparing(Car::getBrand);
-                        case "2" -> Comparator.comparing(Car::getEnginePower);
-                        case "3" -> Comparator.comparing(Car::getYear);
-                        default -> throw new IllegalStateException("Unexpected value: " + command);
+                        case "1" -> Car.BY_BRAND;
+                        case "2" -> Car.BY_ENGINE_POWER;
+                        case "3" -> Car.BY_YEAR;
+                        default -> null;
                     };
 
-                    strategy.sort(carList, comparator); //Запускает сортировку. У меня carList находился в классе Car
-                    carList.forEach(System.out::println);   //Проверка сортировщика
+                    if (comparator != null) {
+                        strategy.sort(carList, comparator);
+                        carList.forEach(System.out::println);
+                    } else {
+                        System.out.println("Неверный выбор поля.");
+                    }
                     break;
 
                 case "3":
                     System.out.println("Выход...");
                     return;
 
+                default: // на случай, ошибок
+                    System.out.println("Неверная команда. Попробуйте снова.");
             }
         }
     }
