@@ -9,7 +9,7 @@ public class CarParser implements Parser<Car> {
 
         String[] parts = line.trim().split(": ");
         
-        if (parts.length < 2 || parts[0] != "Car") {
+        if (parts.length < 2 || !"Car".equals(parts[0])) {
             throw new ValidationException("Ожидается 'Car: <brand_name>, <engine_power>, <year>', но получено: " + line);
         }
 
