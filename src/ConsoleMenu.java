@@ -13,7 +13,7 @@ public class ConsoleMenu {
 
 
         while (true) {
-            System.out.println("Выберите действие('1' - ввод данных, '2' - сортировка, '3' - запись, '4' - выход).");
+            System.out.println("Выберите действие('1' - ввод данных, '2' - сортировка, '3' - запись, '4' - подсчёт автомобилей, '5' - выход).");
             command = scanner.nextLine();
 
             switch (command) {
@@ -76,10 +76,16 @@ public class ConsoleMenu {
                         System.out.println("Ошибка записи в файл: " + e.getMessage());
                     }
                     break;
+
                 case "4":
+                    CarCounter.countOccurrences(carList);
+                    break;
+
+                case "5":
                     System.out.println("Выход...");
                     scanner.close();
                     return;
+
 
                 default: 
                     System.out.println("Неверная команда. Попробуйте снова.");
