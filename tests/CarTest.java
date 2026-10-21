@@ -2,14 +2,23 @@
 public class CarTest {
     public static void main(String[] args) {
         testBuilderSetsAllFields();
+
+        testBuilderBrandValidation();
+        testBuilderPowerValidation();
+        testBuilderYearValidation(); 
+
         testEqualsReflexiveSymmetric();
         testEqualsRejectsNull();
         testEqualsRejectsDifferentClass();
+
         testHashCodeEqualForEqualCars();
+
         testToStringContainsAllFields();
+
         testComparatorByBrand();
         testComparatorByEnginePower();
         testComparatorByYear();
+        
         TestAssertions.printSummary("CarTest");
     }
 
