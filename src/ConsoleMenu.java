@@ -93,9 +93,11 @@ public class ConsoleMenu {
 
                     break;
                 case "4":
+                    System.out.println("Введите название файла:");
+                    String fileName = scanner.nextLine();
                     try {
-                        CarFileWrite.appendCars(carList, "sorted-cars.txt");
-                        System.out.println("Автомобили добавлены в файл sorted-cars.txt.");
+                        CarFileWrite.appendCars(carList, fileName);
+                        System.out.println(carList.size() + " автомобилей добавлено в файл " + fileName);
                     } catch (IOException | NullPointerException e) {
                         System.out.println("Ошибка записи в файл: " + e.getMessage());
                     }
