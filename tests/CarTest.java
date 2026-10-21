@@ -18,7 +18,7 @@ public class CarTest {
         testComparatorByBrand();
         testComparatorByEnginePower();
         testComparatorByYear();
-        
+
         TestAssertions.printSummary("CarTest");
     }
 
@@ -89,16 +89,16 @@ public class CarTest {
 
     // --- Компараторы ---
     static void testComparatorByBrand() {
-        Car a = Car.builder().brand("A").enginePower(1).year(1).build();
-        Car b = Car.builder().brand("B").enginePower(1).year(1).build();
+        Car a = Car.builder().brand("A").enginePower(1).year(2000).build();
+        Car b = Car.builder().brand("B").enginePower(1).year(2000).build();
         TestAssertions.assertTrue(Car.BY_BRAND.compare(a, b) < 0, "BY_BRAND: A < B");
         TestAssertions.assertTrue(Car.BY_BRAND.compare(b, a) > 0, "BY_BRAND: B > A");
         TestAssertions.assertEquals(0, Car.BY_BRAND.compare(a, a), "BY_BRAND: A == A");
     }
 
     static void testComparatorByEnginePower() {
-        Car a = Car.builder().brand("A").enginePower(100).year(1).build();
-        Car b = Car.builder().brand("A").enginePower(200).year(1).build();
+        Car a = Car.builder().brand("A").enginePower(100).year(2000).build();
+        Car b = Car.builder().brand("A").enginePower(200).year(2000).build();
         TestAssertions.assertTrue(Car.BY_ENGINE_POWER.compare(a, b) < 0, "BY_ENGINE_POWER: 100 < 200");
         TestAssertions.assertTrue(Car.BY_ENGINE_POWER.compare(b, a) > 0, "BY_ENGINE_POWER: 200 > 100");
     }
