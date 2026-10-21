@@ -26,11 +26,13 @@ public class ManualDataSource implements DataSource<Car> {
     }
 
     private Car readValidCar() {
+        System.out.println("Введите данные автомобиля в формате 'Car: <brand>, <engine power>, <year>'");
         while (true) {
             try {
                 return parser.parse(scanner.nextLine());
             } catch (ValidationException e) {
                 System.out.println(e.getMessage());
+                System.out.println("Введите снова");
             }
         }
     }
