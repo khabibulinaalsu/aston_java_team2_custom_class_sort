@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,8 +21,8 @@ public class FileDataSource implements DataSource<Car> {
                 .stream()
                 .filter(line -> !line.isBlank())
                 .map(parser::parse)
-                // ИСПОЛЬЗУЕМ ArrayList вместо toList()
-                .collect(Collectors.toCollection(ArrayList::new)); 
+                // ИСПОЛЬЗУЕМ SimpleArrayList вместо toList()
+                .collect(Collectors.toCollection(SimpleArrayList::new)); 
         } catch(IOException e) {
             throw new RuntimeException("Не удалось прочитать файл: " + path, e);
         }

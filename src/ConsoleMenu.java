@@ -1,5 +1,4 @@
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +8,7 @@ public class ConsoleMenu {
         Scanner scanner = new Scanner(System.in);
         SortStrategy<Car> strategy = new BubbleSortStrategy<>();
         String command;
-        List<Car> carList = new ArrayList<>();
+        List<Car> carList = new SimpleArrayList<>();
 
 
         while (true) {
@@ -20,15 +19,15 @@ public class ConsoleMenu {
                 case "1":
                     System.out.println("Выберите способ заполнения данных('1' - вручную, '2' - из файла, '3' - рандом).");
                     String inputMode = scanner.nextLine();
-                    int size;
                     DataSource<Car> dataSource;
+                    int size;
                     
                     try {
                         switch (inputMode) {
                             case "1":
                                 System.out.print("Введите длину массива: ");
                                 size = Integer.parseInt(scanner.nextLine());
-                                dataSource = new ManualDataSource(scanner, size);
+                                dataSource = new ManualDataSource(scanner, size, new CarParser());
                                 break;
                             case "2":
                                 System.out.print("Введите путь к файлу: ");

@@ -1,6 +1,7 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RandomDataSource implements DataSource<Car> {
     private static final String[] BRANDS = {
@@ -20,20 +21,21 @@ public class RandomDataSource implements DataSource<Car> {
 
     @Override 
     public List<Car> load() {
-        List<Car> cars = new ArrayList<>(size);
+        return Stream
+            .generate(this::newCar)
+            .limit(size)
+            .collect(Collectors.toCollection(SimpleArrayList::new));
+    }
 
-        for (int i = 0; i < size; ++i) {
-            String brand = BRANDS[random.nextInt(BRANDS.length)];
-            int enginePower = random.nextInt(431) + 70; // 70-500
-            int year = random.nextInt(142) + 1885; // 1885-2026
+    private Car newCar() {
+        String brand = BRANDS[random.nextInt(BRANDS.length)];
+        int enginePower = random.nextInt(431) + 70;
+        int year = random.nextInt(142) + 1885;
 
-            Car car = Car.builder()
-                .brand(brand)
-                .enginePower(enginePower)
-                .year(year)
-                .build();
-            cars.add(car);
-        }
-        return cars;
+        return Car.builder()
+            .brand(brand)
+            .enginePower(enginePower)
+            .year(year)
+            .build();
     }
 }
