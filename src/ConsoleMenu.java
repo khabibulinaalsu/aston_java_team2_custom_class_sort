@@ -105,15 +105,14 @@ public class ConsoleMenu {
                     }
                     break;
 
-                case "4":
+                case "5":
                     CarCounter.countOccurrences(carList);
                     break;
-                    
-                case "5":
+
+                case "6":
                     System.out.println("Выход...");
                     scanner.close();
                     return;
-
 
                 default: 
                     System.out.println("Неверная команда. Попробуйте снова.");
