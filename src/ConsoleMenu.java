@@ -13,7 +13,7 @@ public class ConsoleMenu {
 
 
         while (true) {
-            System.out.println("Выберите действие('1' - ввод данных, '2' - сортировка, '3' - запись, '4' - выход).");
+            System.out.println("Выберите действие('1' - ввод данных, '2' - сортировка, '3' - особая сортировка, '4' - запись, '5' - выход).");
             command = scanner.nextLine();
 
             switch (command) {
@@ -69,6 +69,30 @@ public class ConsoleMenu {
                     }
                     break;
                 case "3":
+                    System.out.println("Сортировать чётные элементы по... ('1' - enginePower, '2' - year.)");
+                    String field = scanner.nextLine();
+                    if (!field.equals("1") && !field.equals("2")) {
+                        System.out.println("Неверный выбор поля.");
+                    }
+
+                    SortStrategy<Car> specialStrategy = new EvenFieldSortDecorator<>(
+                        new BubbleSortStrategy<>(),
+                        field.equals("1")
+                            ? Car::getEnginePower
+                            : Car::getYear
+                    );
+
+                    Comparator<Car> specialComparator =
+                        field.equals("1")
+                            ? Car.BY_ENGINE_POWER
+                            : Car.BY_YEAR;
+
+                    specialStrategy.sort(carList, specialComparator);
+
+                    System.out.println("Особая сортировка выполнена.");
+
+                    break;
+                case "4":
                     try {
                         CarFileWrite.appendCars(carList, "sorted-cars.txt");
                         System.out.println("Автомобили добавлены в файл sorted-cars.txt.");
@@ -76,7 +100,7 @@ public class ConsoleMenu {
                         System.out.println("Ошибка записи в файл: " + e.getMessage());
                     }
                     break;
-                case "4":
+                case "5":
                     System.out.println("Выход...");
                     scanner.close();
                     return;
