@@ -9,25 +9,7 @@ public class ConsoleMenu {
         Scanner scanner = new Scanner(System.in);
         SortStrategy<Car> strategy = new BubbleSortStrategy<>();
         String command;
-        List<Car> carList = new ArrayList<>(List.of(
-                    Car.builder()
-                        .brand("brandA")
-                        .enginePower(300)
-                        .year(2001)
-                        .build(),
-
-                    Car.builder()
-                        .brand("brandB")
-                        .enginePower(200)
-                        .year(2003)
-                        .build(),
-                        
-                    Car.builder()
-                        .brand("brandC")
-                        .enginePower(100)
-                        .year(2002)
-                        .build()
-        ));
+        List<Car> carList = new ArrayList<>();
 
 
         while (true) {
@@ -38,35 +20,41 @@ public class ConsoleMenu {
                 case "1":
                     System.out.println("Выберите способ заполнения данных('1' - вручную, '2' - из файла, '3' - рандом).");
                     String inputMode = scanner.nextLine();
+                    int size;
+                    DataSource<Car> dataSource;
                     
-                    System.out.print("Введите длину массива: ");
-                    int size = Integer.parseInt(scanner.nextLine());
-                    
-                    DataSource<Car> dataSource = null;
-                    if (inputMode.equals("1")) {
-                        dataSource = new ManualDataSource(scanner, size);
-                    } else if (inputMode.equals("2")) {
-                        System.out.print("Введите путь к файлу: ");
-                        dataSource = new FileDataSource(Path.of(scanner.nextLine()), new CarParser());
-                    } else if (inputMode.equals("3")) {
-                        dataSource = new RandomDataSource(size);
-                    }
-                    
-                    if (dataSource != null) {
+                    try {
+                        switch (inputMode) {
+                            case "1":
+                                System.out.print("Введите длину массива: ");
+                                size = Integer.parseInt(scanner.nextLine());
+                                dataSource = new ManualDataSource(scanner, size);
+                                break;
+                            case "2":
+                                System.out.print("Введите путь к файлу: ");
+                                dataSource = new FileDataSource(Path.of(scanner.nextLine()), new CarParser());
+                                break;
+                            case "3":
+                                System.out.print("Введите длину массива: ");
+                                size = Integer.parseInt(scanner.nextLine());
+                                dataSource = new RandomDataSource(size);
+                                break;
+                            default:
+                                throw new IllegalArgumentException("Неверная команда: " + inputMode);
+                        }
+
                         carList = dataSource.load();
                         System.out.println("Загружено элементов: " + carList.size());
-                    } else {
-                        System.out.println("Неверный способ ввода.");
+                    } catch (Exception e) {
+                        System.out.println("Ошибка при заполнении данных: " + e.getMessage());
                     }
+
                     break;
                     
                 case "2":
                     System.out.println("Сортировать по...('1' - brand, '2' - enginePower, '3' - year).");
 
-                    command = scanner.nextLine();
-
-                    //ИЗМЕНЕНО: убрали throw, который ронял программу
-                    Comparator<Car> comparator = switch (command) {
+                    Comparator<Car> comparator = switch (scanner.nextLine()) {
                         case "1" -> Car.BY_BRAND;
                         case "2" -> Car.BY_ENGINE_POWER;
                         case "3" -> Car.BY_YEAR;
@@ -75,7 +63,7 @@ public class ConsoleMenu {
 
                     if (comparator != null) {
                         strategy.sort(carList, comparator);
-                        carList.forEach(System.out::println);
+                        // DEBUG: carList.forEach(System.out::println);
                     } else {
                         System.out.println("Неверный выбор поля.");
                     }
@@ -83,9 +71,10 @@ public class ConsoleMenu {
 
                 case "3":
                     System.out.println("Выход...");
+                    scanner.close();
                     return;
 
-                default: // на случай, ошибок
+                default: 
                     System.out.println("Неверная команда. Попробуйте снова.");
             }
         }
