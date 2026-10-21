@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class ConsoleMenu {
     public static void main(String[] args) {
@@ -13,7 +14,7 @@ public class ConsoleMenu {
 
 
         while (true) {
-            System.out.println("Выберите действие('1' - ввод данных, '2' - сортировка, '3' - выход).");
+            System.out.println("Выберите действие('1' - ввод данных, '2' - сортировка, '3' - запись, '4' - выход).");
             command = scanner.nextLine();
 
             switch (command) {
@@ -68,8 +69,15 @@ public class ConsoleMenu {
                         System.out.println("Неверный выбор поля.");
                     }
                     break;
-
                 case "3":
+                    try {
+                        CarFileWrite.appendCars(carList, "sorted-cars.txt");
+                        System.out.println("Автомобили добавлены в файл sorted-cars.txt.");
+                    } catch (IOException | NullPointerException e) {
+                        System.out.println("Ошибка записи в файл: " + e.getMessage());
+                    }
+                    break;
+                case "4":
                     System.out.println("Выход...");
                     scanner.close();
                     return;
