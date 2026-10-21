@@ -7,13 +7,15 @@ public class CarParser implements Parser<Car> {
             throw new ValidationException("Получена пустая строка");
         }
 
-        String[] parts = line.trim().split(": ");
-        
-        if (parts.length < 2 || !"Car".equals(parts[0])) {
-            throw new ValidationException("Ожидается 'Car: <brand_name>, <engine_power>, <year>', но получено: " + line);
+        String dataPart = line.trim();
+
+        // Если в строке есть префикс "Car: ", отрезаем его
+        if (dataPart.startsWith("Car:")) {
+            dataPart = dataPart.substring(4).trim();
         }
 
-        String[] fields = parts[1].split(", ");
+        // Разделяем по запятой, игнорируя любые пробелы вокруг запятой
+        String[] fields = dataPart.split("\\s*,\\s*");
 
         if (fields.length != EXPECTED_FIELDS) {
             throw new ValidationException("Ожидается 3 поля, но получено: " + fields.length);
@@ -21,10 +23,10 @@ public class CarParser implements Parser<Car> {
 
         try {
             return Car.builder()
-            .brand(fields[0])
-            .enginePower(Integer.parseInt(fields[1]))
-            .year(Integer.parseInt(fields[2]))
-            .build();
+                .brand(fields[0])
+                .enginePower(Integer.parseInt(fields[1]))
+                .year(Integer.parseInt(fields[2]))
+                .build();
         } catch (NumberFormatException e) {
             throw new ValidationException("Поля engine_power и year должны быть целочисленными", e);
         } catch (IllegalArgumentException e) {
